@@ -1,6 +1,6 @@
 # Introduction
 
-Berikan pengantar singkat tentang proyek Anda, mengapa proyek ini relevan untuk portofolio data engineering, dan manfaatnya.
+Proyek ini bertujuan untuk merancang pipeline ETL (Extract, Transform, Load) untuk menganalisis perilaku pelanggan saat menggunakan kartu kredit. Tujuan proyek ini adalah agar tim marketing dapat memberikan diskon atau promo kepada pelanggan yang bertransaksi di merchant yang menjadi mitra layanan kartu kredit. Hasil dari proyek ini adalah data analisis yang memberikan ringkasan mengenai merchant dengan jumlah transaksi terbanyak di setiap kota.
 
 # Project Overview
 Jelaskan tujuan utama dari proyek ini, seperti mengotomatisasi alur data atau memproses data besar untuk analisis bisnis.
@@ -12,11 +12,54 @@ Sertakan diagram arsitektur ETL yang menggambarkan alur data mulai dari sumber h
 Daftar semua alat, framework, dan bahasa pemrograman yang digunakan (contoh: Apache Airflow, Spark, Python, Kafka, Minio, Hadoop).
 
 # Dataset Description
-Deskripsikan dataset yang digunakan:
+Dataset yang digunakan adalah dataset dari kaggle Financial Transactions Dataset  Analytics dari link berikut https://www.kaggle.com/datasets/computingvictor/transactions-fraud-datasets, data yang diambil sebanyak 3 data masing-masing adalah:
 
-Sumber data (contoh: API, database, file CSV)
-Ukuran dataset
-Jenis data (structured, semi-structured, atau unstructured)
+1. cards_data.csv (6146 record)
+
+    merupakan data yang berisi informasi dari kartu yang digunakan untuk transaksi termasuk users/ clients yang menggunakan kartu tersebut.terdiri dari kolom:
+
+    ```
+    id : type biginteger, sebagai primary key
+    client_id big integer, sebagai foreign key yang terhubung dengan data users_data.csv
+    card_brand character, berisi brand kartu yang digunakan dengan 3 jenis yaitu mastercard, visa, other
+    card_type character, berisi tipe kartu debit, kredit, dan other
+    card_number integer, berisi nomor kartu expires date, berisi tanggal berlakunya kartu yang digunakan
+    cvv integer, berisi nomor cvv yang berada di kartu baik debit, maupun kartu kredit
+    has_chip boolean, tanda apakah kartu yang digunakan sudah menggunakan chip atau tidak
+    num_cards_issued integer, menandakan edisi atau penerbitan kartu yang digunakan
+    credit_limit biginteger, limit yang dimiliki oleh kartu yang digunakan
+    ```
+
+2. users_data.csv (2000 record)
+    merupakan data yang berisi informasi dari pengguna kartu sebagai pemilik kartu. Terdiri dari kolom:
+
+    ```
+    id : type biginteger, sebagai primary key 
+    current_age integer, umur dari pengguna kartu
+    retirement_age integer, umur pensiun dari pengguna kartu
+    birth_year integer, tahun lahir dari pengguna
+    birth_month integer, bulan lahir dari pengguna
+    gender character, berisi gender dari pengguna kartu laki-laki dan perempuan
+    address character, alamat dari pengguna kartu
+    latitude float, titik koordinat latitude pengguna kartu
+    longitude float, titik koordinat longitude pengguna kartu
+    per_capita_income, pendapatan pengguna per kapita
+    ```
+
+3. transactions_data.csv (13.3 juta record)
+    merupakan data yang berisi informasi transaksi kartu dengan merchant yang dilakukan oleh pengguna. Terdiri dari kolom:
+    ```
+    id : typebig integer, sebagai primary key
+    date date: waktu pengguna melakukan transaksi
+    client_id biginteger, sebagai foreign key yang terhubung dengan data users_data.csv
+    card_id biginteger, sebagai foreign key yang terhubung dengan data cards_data.csv
+    amount biginteger, jumlah transaksi yang dilakukan di merchant
+    merchant_id biginteger, merchant tempat terjadinya transaksi
+    merchant_city character, kota merchant yang terjadi transaksi
+    merchant_state character, kode negara bagian yang berada di wilayah Amerika Serikat 
+    zip float, berisi kode pos dari merchant
+    ```
+
 
 # ETL Pipeline Details
 - Extract
