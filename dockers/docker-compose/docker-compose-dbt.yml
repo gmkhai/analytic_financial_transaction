@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  dbt-run:
+    container_name: ${DBT_CONTAINER_NAME}
+    image: final-project/dbt
+    volumes:
+      - ../../dbt:/app/dbt
+    entrypoint: ["dbt"]
+    command: ["run"]
+    env_file:
+      - ../../env
+
+  dbt-docs:
+    container_name: ${DBT_DOCS_CONTAINER_NAME}
+    image: final-project/dbt
+    volumes:
+      - ../../dbt:/app/dbt
+    working_dir: /app/dbt
+    entrypoint: ["dbt"]
+    command: ["docs", "serve"]
+    ports:
+      - "{$DBT_DOCS_PORT}:8000"
+    depends_on:
+      - dbt-run
+    env_file:
+      - ../../env

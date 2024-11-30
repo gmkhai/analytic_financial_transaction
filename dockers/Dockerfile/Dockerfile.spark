@@ -12,5 +12,4 @@ RUN pip install \
     requests \
     pandas \
     python-dotenv==0.20.0 \
-    google-cloud-bigquery
-COPY ../.env /opt/app/.env
+COPY ../../.env /opt/app/.env

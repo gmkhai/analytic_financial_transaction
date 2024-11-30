@@ -1,0 +1,26 @@
+FROM python:3.9-slim
+ENV PYTHONBUFFERED=1 \
+	DBT_VERSION=1.5.1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	git \
+	build-essential \
+	libpq-dev \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/dbt
+
+RUN pip install --upgrade pip && pip install python-dotenv \
+	dbt-core==1.8.9 \
+	dbt-big-query
+
+RUN mkdir -p /root/.dbt
+
+COPY ../../dbt/profiles.yml /root/.dbt/profiles.yml
+
+COPY ../../dbt /app/dbt
+
+RUN dbt deps
+
+ENTRYPOINT ["dbt"]

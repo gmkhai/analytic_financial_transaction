@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+
+USER root
+
+RUN apt-get update && apt-get install -y curl gcc python3-dev
+RUN pip install fastapi[all] psycopg2
+
+COPY ../../fastapi /app/fastapi
+
+CMD [ "uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
