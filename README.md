@@ -31,6 +31,7 @@ Dataset yang digunakan adalah dataset dari kaggle Financial Transactions Dataset
     ```
 
 2. users_data.csv (2000 record)
+
     merupakan data yang berisi informasi dari pengguna kartu sebagai pemilik kartu. Terdiri dari kolom:
 
     ```
@@ -47,6 +48,7 @@ Dataset yang digunakan adalah dataset dari kaggle Financial Transactions Dataset
     ```
 
 3. transactions_data.csv (13.3 juta record)
+
     merupakan data yang berisi informasi transaksi kartu dengan merchant yang dilakukan oleh pengguna. Terdiri dari kolom:
     ```
     id : typebig integer, sebagai primary key
