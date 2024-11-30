@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  fastapi:
+    image: final-project/fastapi
+    volumes:
+      - ../fastapi:fastapi
+    ports:
+      - ${FASTAPI PORT}:8000
+    command: 
+      - 

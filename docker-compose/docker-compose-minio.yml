@@ -1,0 +1,21 @@
+version: '3.3'
+
+networks:
+  portofolio:
+    external: true
+
+services:
+  minio:
+    container_name: ${MINIO_CONTAINER_NAME}
+    image: minio/minio
+    environment:
+      - MINIO_ROOT_USER=${MINIO_USERNAME}
+      - MINIO_ROOT_PASSWORD=${MINIO_PASSWORD}
+    ports:
+      - "${MINIO_HOST}:9000"
+      - "9001:9001"
+    volumes:
+      - ./minio-data:/data
+    networks:
+      - portofolio
+    command: server /data --console-address ":9001"
