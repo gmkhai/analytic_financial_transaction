@@ -11,5 +11,7 @@ RUN pip install \
     lxml \
     requests \
     pandas \
+    google-cloud-bigquery==3.27.0 \
+    apache-airflow-providers-amazon==9.1.0 \
     python-dotenv==0.20.0 \
 COPY ../../.env /opt/app/.env
