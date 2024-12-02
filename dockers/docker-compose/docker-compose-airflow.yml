@@ -6,7 +6,8 @@ services:
     container_name: ${AIRFLOW_SCHEDULER_CONTAINER_NAME}
     hostname: ${AIRFLOW_SCHEDULER_CONTAINER_NAME}
     command: scheduler
-    restart: always
+    networks:
+      - final_test
     environment:
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_CONTAINER_NAME}/${POSTGRES_DB}
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
@@ -27,7 +28,8 @@ services:
     container_name: ${AIRFLOW_WEBSERVER_CONTAINER_NAME}
     hostname: ${AIRFLOW_WEBSERVER_CONTAINER_NAME}
     entrypoint: /scripts/entrypoint.sh
-    restart: always
+    networks:
+      - final_test
     depends_on:
       - scheduler
     environment:
@@ -49,6 +51,5 @@ services:
       - ${AIRFLOW_WEBSERVER_PORT}:8080
 
 networks:
- default:
-  name: dataeng-network
-  external: true
+  final_test:
+    external: true

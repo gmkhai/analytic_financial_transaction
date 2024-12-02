@@ -2,9 +2,16 @@ FROM bitnami/spark:3.5.3
 
 USER root
 
+ENV HADOOP_VERSION=3.3.6
+ENV AWS_JAR_URL=https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar
+ENV AWS_SDK_JAR_URL=https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.565/aws-java-sdk-bundle-1.12.565.jar
+
+RUN mkdir -p /opt/spark/jars
 RUN apt-get update && apt-get install -y curl gcc python3-dev
-RUN curl https://jdbc.postgresql.org/download/postgresql-42.2.18.jar -o /opt/bitnami/spark/jars/postgresql-42.2.18.jar
-RUN curl https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.11.1/commons-pool2-2.11.1.jar -o  /opt/bitnami/spark/jars/commons-pool2-2.11.1.jar
+RUN curl https://jdbc.postgresql.org/download/postgresql-42.2.18.jar -o /opt/spark/jars/postgresql-42.2.18.jar
+RUN curl https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.11.1/commons-pool2-2.11.1.jar -o  /opt/spark/jars/commons-pool2-2.11.1.jar
+RUN curl -o /opt/spark/jars/hadoop-aws-${HADOOP_VERSION}.jar ${AWS_JAR_URL} && \
+    curl -o /opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar ${AWS_SDK_JAR_URL}
 
 
 RUN pip install \
@@ -12,6 +19,5 @@ RUN pip install \
     requests \
     pandas \
     google-cloud-bigquery==3.27.0 \
-    apache-airflow-providers-amazon==9.1.0 \
-    python-dotenv==0.20.0 \
+    python-dotenv==0.20.0
 COPY ../../.env /opt/app/.env

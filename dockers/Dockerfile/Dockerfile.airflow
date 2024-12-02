@@ -6,7 +6,7 @@ RUN apt update && \
     apt-get install -y openjdk-17-jdk && \
     apt-get install -y ant && \
     apt-get install -y procps && \
-    apt-get clean;
+    apt-get clean
 
 # Set JAVA_HOME
 ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
@@ -26,4 +26,4 @@ RUN pip install \
     google-cloud-bigquery==3.27.0 \
     apache-airflow-providers-amazon==9.1.0
 
-COPY --chown=airflow:root ./dags /opt/airflow/dags
+COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags

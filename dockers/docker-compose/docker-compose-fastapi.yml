@@ -3,8 +3,14 @@ version: '3.3'
 services:
   fastapi:
     image: final-project/fastapi
+    networks:
+      - final_test
     volumes:
-      - ../../fastapi:fastapi
+      - ../../fastapi:/fastapi
     ports:
       - "${FASTAPI_PORT}:8000"
     command: uvicorn main:app --proxy-headers --host 0.0.0.0 --port 8000 --reload
+
+networks:
+  final_test:
+    external: true

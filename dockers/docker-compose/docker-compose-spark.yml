@@ -5,6 +5,8 @@ services:
     container_name: ${SPARK_MASTER_CONTAINER_NAME}
     hostname: ${SPARK_MASTER_HOST_NAME}
     image: final_project/spark
+    networks:
+      - final_test
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -21,6 +23,8 @@ services:
   spark-worker-1: &worker_default
     container_name: ${SPARK_WORKER_CONTAINER_NAME}-1
     image: final_project/spark
+    networks:
+      - final_test
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://${SPARK_MASTER_HOST_NAME}:${SPARK_MASTER_PORT}
@@ -31,14 +35,16 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - ../spark:/spark-scripts
-      - ../logs:/tmp
+      - ../../spark:/spark-scripts
+      - ../../logs:/tmp
     depends_on:
       - spark-master
 
   spark-worker-2: &worker_default
     container_name: ${SPARK_WORKER_CONTAINER_NAME}-2
     image: final_project/spark
+    networks:
+      - final_test
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://${SPARK_MASTER_HOST_NAME}:${SPARK_MASTER_PORT}
@@ -49,12 +55,11 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - ../spark:/spark-scripts
-      - ../logs:/tmp
+      - ../../spark:/spark-scripts
+      - ../../logs:/tmp
     depends_on:
       - spark-master
 
 networks:
- default:
-  name: dataeng-network
-  external: true
+  final_test:
+    external: true
