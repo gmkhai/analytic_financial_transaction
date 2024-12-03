@@ -14,7 +14,7 @@ WORKDIR /app/dbt
 
 RUN pip install --upgrade pip && pip install python-dotenv \
 	dbt-core==1.8.9 \
-	dbt-big-query
+	dbt-bigquery
 
 RUN mkdir -p /root/.dbt
 
