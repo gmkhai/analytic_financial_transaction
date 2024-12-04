@@ -65,6 +65,8 @@ async def transactions_list(date: str = Query(...)):
             }
             row_datas.append(data)
         response["result"] = row_datas
+        response["status_code"] = status.HTTP_200_OK
+        response["message"] = "Retrieve data card transaction success"
     else:
         response["message"] = f"Data transaction card not found for {date}"
         response["status_code"] = status.HTTP_404_NOT_FOUND
