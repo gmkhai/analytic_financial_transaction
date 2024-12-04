@@ -21,7 +21,7 @@ services:
     volumes:
       - ../../airflow:/opt/airflow
       - ../../logs:/opt/airflow/logs
-      - ../../spark:/spark-scripts
+      - ../../spark:/spark
 
   webserver:
     image: dataeng-dibimbing/airflow
@@ -46,7 +46,7 @@ services:
     volumes:
       - ../../airflow:/opt/airflow
       - ../../logs:/opt/airflow/logs
-      - ../../spark:/spark-scripts
+      - ../../spark:/spark
     ports:
       - ${AIRFLOW_WEBSERVER_PORT}:8080
 

@@ -2,9 +2,12 @@ FROM python:3.10-slim
 
 USER root
 
+WORKDIR /app/fast_api
+
 RUN apt-get update && apt-get install -y curl gcc python3-dev
 RUN pip install fastapi[all] psycopg2-binary
 
-COPY ../../fastapi /app/fastapi
+COPY ../../fast_api /app/fast_api
+COPY ../../.env /app/.env
 
-CMD [ "uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
+CMD [ "uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
