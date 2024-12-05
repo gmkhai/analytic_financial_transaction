@@ -4,8 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb6ca19-b9a2-483a-bb0b-f8f8ac8f7b1e" name="Changes" comment="Fastapi: final design API transactions card">
+    <list default="true" id="6cb6ca19-b9a2-483a-bb0b-f8f8ac8f7b1e" name="Changes" comment="Airflow: configuration docker-compose airflow">
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/airflow-webserver.pid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/dags/card_transaction_dag.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/extracts/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/extracts/card_transaction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/loads/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/loads/card_transaction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/transforms/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/airflow-webserver.pid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/airflow.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/orchestration_airflow/airflow.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/dags/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/orchestration_airflow/dags/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/orchestration_airflow/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/orchestration_airflow/tasks/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/webserver_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/orchestration_airflow/webserver_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockers/Dockerfile/Dockerfile.airflow" beforeDir="false" afterPath="$PROJECT_DIR$/dockers/Dockerfile/Dockerfile.airflow" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockers/docker-compose/docker-compose-airflow.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dockers/docker-compose/docker-compose-airflow.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +55,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\BLOBOO\OneDrive\Desktop\Portofolio\project_card_transaction\airflow\tasks\card_transaction" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,13 +100,31 @@
       <option name="project" value="LOCAL" />
       <updated>1733320479895</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fastapi: add response message and status code">
+      <option name="closed" value="true" />
+      <created>1733322846245</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733322846245</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Airflow: configuration docker-compose airflow">
+      <option name="closed" value="true" />
+      <created>1733327053143</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733327053143</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialize: update configurations docker" />
     <MESSAGE value="Fastapi: add API for get data ransaction by month_year" />
     <MESSAGE value="Fastapi: final design API transactions card" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fastapi: final design API transactions card" />
+    <MESSAGE value="Fastapi: add response message and status code" />
+    <MESSAGE value="Airflow: configuration docker-compose airflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Airflow: configuration docker-compose airflow" />
   </component>
 </project>
