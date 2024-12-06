@@ -14,6 +14,10 @@ RUN export JAVA_HOME
 
 USER airflow
 
+WORKDIR /opt/airflow
+
+COPY ../../airflow /opt/airflow
+
 RUN pip install \
     lxml \
     pyspark==3.3.2 \
@@ -26,4 +30,4 @@ RUN pip install \
     google-cloud-bigquery==3.27.0 \
     apache-airflow-providers-amazon==9.1.0
 
-COPY --chown=orchestration_airflow:root ../../orchestration_airflow/dags /opt/orchestration_airflow/dags
+COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags

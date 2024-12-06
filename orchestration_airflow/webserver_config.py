@@ -1,2 +1,0 @@
-AUTH_ROLE_PUBLIC = 'Admin'
-AUTH_ROLE_PUBLIC = 'Admin'

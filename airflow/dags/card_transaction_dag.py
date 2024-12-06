@@ -2,13 +2,14 @@ from datetime import datetime
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
-from orchestration_airflow.tasks.extracts.card_transaction import extract_transaction, extract_card, extract_user
-from orchestration_airflow.tasks.loads.card_transaction import load_stage_card_transaction, load_warehouse_card_transaction
+from tasks.extracts.card_transaction import extract_transaction, extract_card, extract_user
+from tasks.loads.card_transaction import load_stage_card_transaction, load_warehouse_card_transaction
 
 
 @dag(
     dag_id='transaction_card',
     start_date=datetime.now(),
+    description="Assignment ETL Spark",
     schedule_interval='@monthly'
 )
 def transaction_card_dag():
