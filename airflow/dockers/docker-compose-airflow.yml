@@ -11,6 +11,9 @@ services:
     environment:
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_CONTAINER_NAME}/${POSTGRES_DB}
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
+      - AIRFLOW__CORE__BASE_LOG_FOLDER=/opt/airflow/logs
+      - AIRFLOW__CORE__REMOTE_LOGGING=False
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
@@ -19,9 +22,9 @@ services:
       - SPARK_MASTER_HOST_NAME=${SPARK_MASTER_HOST_NAME}
       - SPARK_MASTER_PORT=${SPARK_MASTER_PORT}
     volumes:
-      - ../../airflow:/opt/airflow
-      - ../../logs:/opt/logs
-      - ../../spark:/spark
+      - ../dags:/opt/airflow/dags
+      - ../logs:/opt/airflow/logs
+      - ../../spark/scripts:/spark
 
   webserver:
     image: final-project/airflow
@@ -35,6 +38,9 @@ services:
     environment:
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_CONTAINER_NAME}/${POSTGRES_DB}
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
+      - AIRFLOW__CORE__BASE_LOG_FOLDER=/opt/airflow/logs
+      - AIRFLOW__CORE__REMOTE_LOGGING=False
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
@@ -43,9 +49,9 @@ services:
       - SPARK_MASTER_HOST_NAME=${SPARK_MASTER_HOST_NAME}
       - SPARK_MASTER_PORT=${SPARK_MASTER_PORT}
     volumes:
-      - ../../airflow:/opt/airflow
-      - ../../logs:/opt/logs
-      - ../../spark:/spark
+      - ../dags:/opt/airflow/dags
+      - ../logs:/opt/airflow/logs
+      - ../../spark/scripts:/spark
     ports:
       - ${AIRFLOW_WEBSERVER_PORT}:8080
 

@@ -7,7 +7,7 @@ services:
     networks:
       - final_test
     volumes:
-      - ../../dbt:/app/dbt
+      - ../dbt:/app/dbt
     entrypoint: ["dbt"]
     command: ["run"]
     env_file:
@@ -17,7 +17,7 @@ services:
     container_name: ${DBT_DOCS_CONTAINER_NAME}
     image: final-project/dbt
     volumes:
-      - ../../dbt:/app/dbt
+      - ../dbt:/app/dbt
     working_dir: /app/dbt
     networks:
       - final_test

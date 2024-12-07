@@ -7,9 +7,8 @@ from tasks.loads.card_transaction import load_stage_card_transaction, load_wareh
 
 
 @dag(
-    dag_id='transaction_card',
+    dag_id='ini_test',
     start_date=datetime.now(), #datetime(2009, 12, 1),
-    catchup=True,
     description="Assignment ETL Spark",
     schedule_interval='1 * * * *'
 )

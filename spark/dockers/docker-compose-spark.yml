@@ -14,8 +14,8 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - ../../spark:/spark
-      - ../../logs:/tmp
+      - ../scripts:/spark
+      - ../logs:/tmp
     ports:
       - ${SPARK_MASTER_UI}:8080
       - ${SPARK_MASTER_PORT}:7077
@@ -35,8 +35,8 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - ../../spark:/spark-scripts
-      - ../../logs:/tmp
+      - ../scripts:/spark
+      - ../logs:/tmp
     depends_on:
       - spark-master
 
@@ -55,8 +55,8 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - ../../spark:/spark-scripts
-      - ../../logs:/tmp
+      - ../scripts:/spark
+      - ../logs:/tmp
     depends_on:
       - spark-master
 

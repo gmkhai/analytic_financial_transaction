@@ -18,9 +18,9 @@ RUN pip install --upgrade pip && pip install python-dotenv \
 
 RUN mkdir -p /root/.dbt
 
-COPY ../../dbt/profiles.yml /root/.dbt/profiles.yml
+COPY ../dbt/profiles.yml /root/.dbt/profiles.yml
 
-COPY ../../dbt /app/dbt
+COPY ../dbt /app/dbt
 
 RUN dbt deps
 

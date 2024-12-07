@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.2-python3.9
+FROM apache/airflow:slim-latest-python3.9
 USER root
 
 # Install OpenJDK-11
@@ -14,10 +14,6 @@ RUN export JAVA_HOME
 
 USER airflow
 
-WORKDIR /opt/airflow
-
-COPY ../../airflow /opt/airflow
-
 RUN pip install \
     lxml \
     pyspark==3.3.2 \
@@ -30,4 +26,4 @@ RUN pip install \
     google-cloud-bigquery==3.27.0 \
     apache-airflow-providers-amazon==9.1.0
 
-COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags
+COPY --chown=airflow:root ../dags /opt/airflow/dags

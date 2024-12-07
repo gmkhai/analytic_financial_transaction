@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from api.transactions.api import transaction_route
-
+from transactions.api import transaction_route
 
 app = FastAPI()
 
