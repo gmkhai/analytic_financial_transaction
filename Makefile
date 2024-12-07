@@ -19,16 +19,16 @@ docker-build:
 
 docker-compose:
 	@echo 'create docker build...'
-	@docker compose -f ./dockers/docker-compose/docker-compose-postgres.yml --env-file .env up -d
+	@docker compose -f dockers/docker-compose/docker-compose-postgres.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f ./dockers/docker-compose/docker-compose-spark.yml --env-file .env up -d
+	@docker compose -f spark/dockers/docker-compose-spark.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f ./dockers/docker-compose/docker-compose-airflow.yml --env-file .env up -d
+	@docker compose -f airflow/dockers/docker-compose-airflow.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f ./dockers/docker-compose/docker-compose-fastapi.yml --env-file .env up -d
+	@docker compose -f fast_apidockers/docker-compose-fastapi.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f ./dockers/docker-compose/docker-compose-dbt.yml --env-file .env up -d
+	@docker compose -f data_build_tools/dockers/docker-compose-dbt.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f ./dockers/docker-compose/docker-compose-minio.yml --env-file .env up -d
+	@docker compose -f dockers/docker-compose/docker-compose-minio.yml --env-file .env up -d
 	@echo '==========================================================='
 	@echo 'created docker container success!!!'

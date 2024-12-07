@@ -1,4 +1,6 @@
 .venv/*
 .idea/*
 data_build_tools/dbt/creds
-logs/data_build_tools/dbt/creds/service_account.json
+logs/
+airflow/logs
+spark/logs
