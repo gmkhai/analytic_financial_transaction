@@ -22,8 +22,8 @@ services:
       - SPARK_MASTER_HOST_NAME=${SPARK_MASTER_HOST_NAME}
       - SPARK_MASTER_PORT=${SPARK_MASTER_PORT}
     volumes:
-      - ../dags:/opt/airflow/dags
-      - ../logs:/opt/airflow/logs
+      - ../../airflow/dags:/opt/airflow/dags
+      - ../../airflow/logs:/opt/airflow/logs
       - ../../spark/scripts:/spark
 
   webserver:
@@ -49,8 +49,8 @@ services:
       - SPARK_MASTER_HOST_NAME=${SPARK_MASTER_HOST_NAME}
       - SPARK_MASTER_PORT=${SPARK_MASTER_PORT}
     volumes:
-      - ../dags:/opt/airflow/dags
-      - ../logs:/opt/airflow/logs
+      - ../../airflow/dags:/opt/airflow/dags
+      - ../../airflow/logs:/opt/airflow/logs
       - ../../spark/scripts:/spark
     ports:
       - ${AIRFLOW_WEBSERVER_PORT}:8080

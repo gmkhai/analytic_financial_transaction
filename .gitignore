@@ -1,4 +1,4 @@
 .venv/*
 .idea/*
 data_build_tools/dbt/creds
-logs/
+logs/data_build_tools/dbt/creds/service_account.json

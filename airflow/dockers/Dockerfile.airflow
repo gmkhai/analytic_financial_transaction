@@ -26,4 +26,4 @@ RUN pip install \
     google-cloud-bigquery==3.27.0 \
     apache-airflow-providers-amazon==9.1.0
 
-COPY --chown=airflow:root ../dags /opt/airflow/dags
+COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags

@@ -12,7 +12,7 @@ docker-build:
 	@echo '__________________________________________________________'
 	@docker build -t final-project/fastapi -f ./fast_api/dockers/Dockerfile.fastapi .
 	@echo '__________________________________________________________'
-	@docker build -t final-project/dbt -f ./dbt/dockers/Dockerfile.dbt .
+	@docker build -t final-project/dbt -f ./data_build_tools/dockers/Dockerfile.dbt .
 	@echo '==========================================================='
 	@echo 'docker build success!!!'
 

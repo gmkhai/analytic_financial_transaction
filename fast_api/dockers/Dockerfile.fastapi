@@ -7,7 +7,7 @@ WORKDIR /app/api
 RUN apt-get update && apt-get install -y curl gcc python3-dev
 RUN pip install fastapi[all] psycopg2-binary
 
-COPY ../api /app/api
+COPY ../../fast_api/api /app/api
 COPY ../../.env /app/.env
 
 CMD [ "uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
