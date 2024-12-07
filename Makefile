@@ -25,7 +25,7 @@ docker-compose:
 	@echo '__________________________________________________________'
 	@docker compose -f airflow/dockers/docker-compose-airflow.yml --env-file .env up -d
 	@echo '__________________________________________________________'
-	@docker compose -f fast_apidockers/docker-compose-fastapi.yml --env-file .env up -d
+	@docker compose -f fast_api/dockers/docker-compose-fastapi.yml --env-file .env up -d
 	@echo '__________________________________________________________'
 	@docker compose -f data_build_tools/dockers/docker-compose-dbt.yml --env-file .env up -d
 	@echo '__________________________________________________________'

@@ -4,3 +4,5 @@ data_build_tools/dbt/creds
 logs/
 airflow/logs
 spark/logs
+minio-data/
+**/__pycache__/

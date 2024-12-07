@@ -17,19 +17,9 @@ def transaction_card_dag():
         task_id='start_task',
     )
 
-    extract_transaction_task = PythonOperator(
-        task_id='extract_transaction_task',
-        python_callable=extract_transaction
-    )
-
     extract_card_task = PythonOperator(
         task_id='extract_card_task',
         python_callable=extract_card
-    )
-
-    extract_user_task = PythonOperator(
-        task_id='extract_user_task',
-        python_callable=extract_user
     )
 
     end_task = EmptyOperator(
@@ -47,7 +37,7 @@ def transaction_card_dag():
     # )
 
 
-    start_task >> [extract_card_task, extract_user_task, extract_transaction_task] >> end_task
+    start_task >> extract_card_task >> end_task
 
 
 transaction_card_dag()
