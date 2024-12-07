@@ -19,7 +19,7 @@ airflow connections add 'storage_minio_conn' \
     --conn-type 'aws' \
     --conn-login $MINIO_USERNAME \
     --conn-password $MINIO_PASSWORD \
-    --conn-extra '{"endpoint_url": "host.docker.internal:$MINIO_PORT"}'
+    --conn-extra '{"endpoint_url": "http://host.docker.internal:$MINIO_PORT"}'
 export SPARK_FULL_HOST_NAME="spark://$SPARK_MASTER_HOST_NAME"
 airflow connections add 'spark_main' \
     --conn-type 'spark' \

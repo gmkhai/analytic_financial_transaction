@@ -42,7 +42,8 @@ async def transactions_list(date: str = Query(...)):
     FROM transactions
     WHERE EXTRACT(year FROM date) = %s
     AND EXTRACT(month FROM date) = %s
-    ORDER BY date ASC;
+    ORDER BY date ASC
+    LIMIT 5;
     """
     cursor.execute(select_query, (year, month))
     results = cursor.fetchall()
