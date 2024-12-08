@@ -20,7 +20,7 @@ def connection_save_to_minio(data_name: str, unique_1: int, unique_2: int, data_
     output_buffer.seek(0)
     s3_hook = S3Hook(aws_conn_id="storage_minio_conn")
     bucket_name = 'card-transactions'
-    s3_key = f'/card-transactions/extract/{data_name}/{unique_1}-{unique_2}.parquet'
+    s3_key = f'/extract/{data_name}/{unique_1}-{unique_2}.parquet'
     s3_hook.load_bytes(
         bytes_data=output_buffer.getvalue(),
         bucket_name=bucket_name,
