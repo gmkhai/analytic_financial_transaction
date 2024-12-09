@@ -1,0 +1,45 @@
+from airflow.decorators import dag
+from airflow.operators.empty import EmptyOperator
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.utils.trigger_rule import TriggerRule
+from datetime import datetime, timedelta
+
+
+datetime_days_ago = datetime.now() - timedelta(days=1)
+
+@dag(
+    dag_id = "transform_transactions_card_dag",
+    description='Extraction from source',
+    schedule_interval='@monthly',
+    start_date=datetime(year=datetime_days_ago.year, month=datetime_days_ago.month, day=datetime_days_ago.day)
+)
+def transform_transactions_card_dag():
+    stark_task = EmptyOperator(
+        task_id='start_task',
+    )
+
+    transform_transaction_task = SparkSubmitOperator(
+        task_id='transform_transaction_task',
+        application="/spark/transactions_transform.py",
+        conn_id='spark_main'
+    )
+
+    tranform_card_task = SparkSubmitOperator(
+        task_id='transform_card_task',
+        application="/spark/cards_transform.py",
+        conn_id='spark_main'
+    )
+
+    tranform_user_task = SparkSubmitOperator(
+        task_id='tranform_user_task',
+        application="/spark/users_transform.py",
+        conn_id='spark_main'
+    )
+
+    end_task = EmptyOperator(
+        task_id='end_task'
+    )
+
+    stark_task >> [transform_transaction_task, tranform_card_task, tranform_user_task] >> end_task
+
+transform_transactions_card_dag()
