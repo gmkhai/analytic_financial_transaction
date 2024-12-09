@@ -8,7 +8,17 @@ RUN apt update && \
     apt-get install -y procps && \
     apt-get clean
 
-# Set JAVA_HOME
+RUN mkdir -p /opt/spark/jars
+
+ENV HADOOP_VERSION=3.3.4
+ENV AWS_JAR_URL=https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar
+ENV AWS_SDK_JAR_URL=https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.565/aws-java-sdk-bundle-1.12.565.jar
+ENV HADOOP_COMMON=https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-common/3.3.6/hadoop-common-3.3.6.jar
+
+RUN curl -o /opt/spark/jars/hadoop-aws-${HADOOP_VERSION}.jar ${AWS_JAR_URL} && \
+    curl -o /opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar ${AWS_SDK_JAR_URL} && \
+    curl -o /opt/spark/jars/hadoop-common-3.3.6.jar ${HADOOP_COMMON}
+    
 ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 RUN export JAVA_HOME
 
