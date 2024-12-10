@@ -25,7 +25,7 @@ schema = StructType(
 # read data parquet from minio
 data_frame = spark.read.parquet('s3a://card-transactions/extract/transactions/*.parquet', header=True, schema=schema)
 
-# reformat data schema date, amount, and zip
+# reformat data schema date, amount, and zip, and column string data
 df_reformat_date = data_frame\
     .withColumn('date', F.to_timestamp('date'))
 
@@ -46,12 +46,19 @@ df_reformat_lower = df_reformat_fillna\
 
 # reformat amount column
 df_reformat = df_reformat_lower\
-    .withColumn('currency', F.regexp_extract(df_reformat_lower['amount'], f"(\$)", 1))\
-    .withColumn('amount', F.regexp_extract(df_reformat_lower['amount'], f"(\d+\.\d+|\d+)", 1))
+    .withColumn('currency', F.regexp_extract(df_reformat_lower['amount'], r"(\$)", 1))\
+    .withColumn('amount', F.regexp_extract(df_reformat_lower['amount'], r"(-?\d+\.\d+|-?\d+)", 1))\
+    .withColumn('amount', F.col('amount').cast("double"))
 
 # show schema and result reformating data
 df_reformat.printSchema()
 df_reformat.show()
+null_counts = df_reformat.agg(
+    *[F.sum(F.when(F.col(c).isNull(), 1).otherwise(0)).alias(c) for c in df_reformat.columns]
+)
+
+# show checking missing value all column
+null_counts.show()
 
 # configurations to postgres
 jdbc_url = f'jdbc:postgresql://postgres:5432/datawarehouse'
