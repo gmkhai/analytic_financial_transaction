@@ -6,3 +6,7 @@ airflow/logs
 spark/logs
 minio-data/
 **/__pycache__/
+data_build_tools/dbt/dbt_packages 
+data_build_tools/dbt/target
+data_build_tools/dbt/.user.yml
+data_build_tools/dbt/package-lock.yml

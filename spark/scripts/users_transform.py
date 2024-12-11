@@ -21,7 +21,7 @@ schema = StructType(
         StructField('per_capita_income', StringType(), nullable=True),
         StructField('yearly_income', StringType(), nullable=True),
         StructField('total_debt', StringType(), nullable=True),
-        StructField('credit_scode', IntegerType(), nullable=True),
+        StructField('credit_score', IntegerType(), nullable=True),
         StructField('num_credit_cards', IntegerType(), nullable=True)
     ]
 )

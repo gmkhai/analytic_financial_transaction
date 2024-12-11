@@ -1,6 +1,22 @@
 version: '3.3'
 
+networks:
+  final_test:
+    external: true
+
 services:
+  dbt-deps:
+    container_name: dbt-deps
+    image: final-project/dbt
+    networks:
+      - final_test
+    volumes:
+      - ../../data_build_tools/dbt:/app/dbt
+    entrypoint: ["dbt"]
+    command: ["deps"]
+    env_file:
+      - ../../.env
+
   dbt-run:
     container_name: ${DBT_CONTAINER_NAME}
     image: final-project/dbt
@@ -10,6 +26,8 @@ services:
       - ../../data_build_tools/dbt:/app/dbt
     entrypoint: ["dbt"]
     command: ["run"]
+    depends_on:
+      - dbt-deps
     env_file:
       - ../../.env
 
@@ -24,7 +42,7 @@ services:
     entrypoint: ["dbt"]
     command: ["docs", "serve"]
     ports:
-      - "{$DBT_DOCS_PORT}:8000"
+      - "${DBT_DOCS_PORT}:8000"
     depends_on:
       - dbt-run
     env_file:
