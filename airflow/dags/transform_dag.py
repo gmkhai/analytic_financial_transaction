@@ -21,21 +21,21 @@ def transform_transactions_card_dag():
     transform_transaction_task = SparkSubmitOperator(
         task_id='transform_transaction_task',
         application="/spark/transactions_transform.py",
-        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar",
+        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar,/opt/spark/jars/postgresql-42.2.18.jar",
         conn_id='spark_main'
     )
 
     tranform_card_task = SparkSubmitOperator(
         task_id='transform_card_task',
         application="/spark/cards_transform.py",
-        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar",
+        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar,/opt/spark/jars/postgresql-42.2.18.jar",
         conn_id='spark_main'
     )
 
     tranform_user_task = SparkSubmitOperator(
         task_id='tranform_user_task',
         application="/spark/users_transform.py",
-        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar",
+        jars="/opt/spark/jars/hadoop-aws-3.3.4.jar,/opt/spark/jars/aws-java-sdk-bundle-1.12.565.jar,/opt/spark/jars/postgresql-42.2.18.jar",
         conn_id='spark_main'
     )
 
