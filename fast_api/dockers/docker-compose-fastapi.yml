@@ -7,6 +7,7 @@ services:
       - final_test
     volumes:
       - ../../fast_api/api:/app/api
+      - ../../fast_api/dbt:/app/dbt
     ports:
       - "${FASTAPI_PORT}:8000"
     command: uvicorn main:app --proxy-headers --host 0.0.0.0 --port 8000 --reload

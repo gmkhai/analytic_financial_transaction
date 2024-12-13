@@ -4,7 +4,6 @@ from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from tasks.extracts.card_transaction import extract_transaction, extract_card, extract_user
-from tasks.loads.card_transaction import load_stage_card_transaction, load_warehouse_card_transaction
 
 
 @dag(

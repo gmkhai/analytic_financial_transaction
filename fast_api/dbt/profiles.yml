@@ -1,0 +1,14 @@
+project_card_transaction:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: postgres
+      port: 5432
+      user: airflow
+      password: final_project123
+      dbname: datawarehouse
+      schema: public
+
+

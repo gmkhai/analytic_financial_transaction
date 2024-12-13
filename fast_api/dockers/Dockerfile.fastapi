@@ -4,10 +4,22 @@ USER root
 
 WORKDIR /app/api
 
-RUN apt-get update && apt-get install -y curl gcc python3-dev
-RUN pip install fastapi[all] psycopg2-binary
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    gcc \
+    python3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install fastapi[all] psycopg2-binary dbt-core==1.8.9 dbt-postgres
+
+RUN mkdir -p /root/.dbt
+RUN mkdir -p /apt/dbt/target
 
 COPY ../../fast_api/api /app/api
 COPY ../../.env /app/.env
+COPY ../../fast_api/dbt/profiles.yml /root/.dbt/profiles.yml
+COPY ../../fast_api/dbt /app/dbt
 
 CMD [ "uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
