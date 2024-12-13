@@ -6,7 +6,12 @@ Proyek ini bertujuan untuk merancang pipeline ETL (Extract, Transform, Load) unt
 Melakukan otomatisasi untuk beberapa tahap dari tahap extraction hingga di simpan ke load datawarehouse dengan memperhatikan kebutuhan data dari subject. Kemudian data tersebut menjadi bahan untuk menentukan keputusan bisnis terkait dengan penggunaan kartu kredit
 
 # Architecture Diagram
-![alt text](<documentions/ETL Architecture Muhammad Khairunnas.png>)
+
+1. Arsitektur ETL yang digunakan
+    ![alt text](<documentions/ETL Architecture Muhammad Khairunnas.png>)
+
+2. Data modeling yang dirancang
+    ![alt text](<documentions/Data Modeling Muhammad Khairunnas.png>)
 
 # Tools and Technologies Used
 **1. FastAPI**
