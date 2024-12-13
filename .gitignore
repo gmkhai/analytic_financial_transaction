@@ -10,3 +10,6 @@ data_build_tools/dbt/dbt_packages
 data_build_tools/dbt/target
 data_build_tools/dbt/.user.yml
 data_build_tools/dbt/package-lock.yml
+
+fast_api/dbt/dbt_packages 
+fast_api/dbt/target

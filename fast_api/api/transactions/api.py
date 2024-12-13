@@ -1,7 +1,8 @@
 import psycopg2
-from datetime import datetime
-from fastapi import FastAPI, APIRouter, Query, status
 import settings
+from datetime import datetime
+from fastapi import APIRouter,HTTPException, Query, status
+from transactions.utils import run_dbt_command
 
 transaction_route = APIRouter()
 
@@ -71,3 +72,18 @@ async def transactions_list(date: str = Query(...)):
         response["message"] = f"Data transaction card not found for {date}"
         response["status_code"] = status.HTTP_404_NOT_FOUND
     return response
+
+
+@transaction_route.get('/hit-dbt')
+async def running_dbt_process(unique_command: str = Query()):
+    """
+    API for hit dbt run
+    :param unique_command: str hard code manual using this 'project_akhir_dbt'
+    :return response: dict
+    """
+    if unique_command != 'project_akhir_dbt':
+        raise HTTPException(status_code=400, detail=f"Invalid command: {unique_command}")
+    
+    command = "run"
+    result = run_dbt_command(command)
+    return {"command": command, "output": result, "status_code": 200}
