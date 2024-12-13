@@ -1,15 +1,42 @@
 # Introduction
 
-Proyek ini bertujuan untuk merancang pipeline ETL (Extract, Transform, Load) untuk menganalisis perilaku pelanggan saat menggunakan kartu kredit. Tujuan proyek ini adalah agar tim marketing dapat memberikan diskon atau promo kepada pelanggan yang bertransaksi di merchant yang menjadi mitra layanan kartu kredit. Hasil dari proyek ini adalah data analisis yang memberikan ringkasan mengenai merchant dengan jumlah transaksi terbanyak di setiap kota.
+Proyek ini bertujuan untuk merancang pipeline ETL (Extract, Transform, Load) untuk menganalisis perilaku pelanggan saat menggunakan kartu kredit. Tujuan proyek ini adalah agar tim marketing dapat memberikan diskon atau promo kepada pelanggan yang bertransaksi di merchant yang menjadi mitra layanan kartu kredit. Hasil dari proyek ini adalah data analisis yang memberikan ringkasan mengenai merchant dengan jumlah transaksi yang sedikit di setiap kota.
 
 # Project Overview
-Jelaskan tujuan utama dari proyek ini, seperti mengotomatisasi alur data atau memproses data besar untuk analisis bisnis.
+Melakukan otomatisasi untuk beberapa tahap dari tahap extraction hingga di simpan ke load datawarehouse dengan memperhatikan kebutuhan data dari subject. Kemudian data tersebut menjadi bahan untuk menentukan keputusan bisnis terkait dengan penggunaan kartu kredit
 
 # Architecture Diagram
-Sertakan diagram arsitektur ETL yang menggambarkan alur data mulai dari sumber hingga penyimpanan akhir. Gunakan alat seperti Lucidchart atau draw.io.
+![alt text](<documentions/ETL Architecture Muhammad Khairunnas.png>)
 
 # Tools and Technologies Used
-Daftar semua alat, framework, dan bahasa pemrograman yang digunakan (contoh: Apache Airflow, Spark, Python, Kafka, Minio, Hadoop).
+**1. FastAPI**
+
+Framework yang digunakan untuk mengambangkan API yang menjadi sumber data yang ingin ingest. Framework ini dikembangkan dengan menggunakan bahasa python. 
+
+**2. PostgreSQL**
+
+Database yang menjadi sumber data untuk di ingestion sekaligus sebagai tempat datawarehouse sebelum dianalisis oleh subject. Database ini berbasis RDBMS yang memiliki relasi untuk setiap tablenya.
+
+**3. MinIO**
+
+Data storage yang menjadi tempat landing data setelah di-ingestion. data yang sudah di-ingest akan disimpan kedalam format parquet.
+
+**4. Spark**
+
+Layanan untuk melakukan transformasi data pada project ini adalah spark atau lebih tepatnya pyspark. pada project ini digunakan spark cluster dengan 2 node karena memerlukan proses data yang cukup banyak.
+
+**5. DBT**
+
+Platform yang digunakan untuk melakukan data modeling adalah DBT pada tahap ini dilakukan filtering data yang ingin di-create di data warehouse sebagai datamart untuk membatasi akses beberapa data yang akan digunakan oleh subject.
+
+**6. Airflow**
+
+Platform orchestration untuk menjalankan proses ETL secara terjadwal. Platform ini sangat berguna untuk proses design alur ETL karena digunakan untuk tugas yang fleksibel dan kompleks.
+
+**6. PowerBI**
+
+Platform yang terakhir yang digunakan adalah power BI. Platform ini digunakan untuk visualisasi data dari data yang sudah di query dari data mart.
+
 
 # Dataset Description
 Dataset yang digunakan adalah dataset dari kaggle Financial Transactions Dataset  Analytics dari link berikut https://www.kaggle.com/datasets/computingvictor/transactions-fraud-datasets, data yang diambil sebanyak 3 data masing-masing adalah:
@@ -65,48 +92,42 @@ Dataset yang digunakan adalah dataset dari kaggle Financial Transactions Dataset
 
 # ETL Pipeline Details
 - Extract
-
-Jelaskan proses pengambilan data dari sumbernya.
-Contoh kode (jika ada).
+    
+    Extract data dilakukan terhadap beberapa sumber yang sudah dirancang sebelumnya, data akan diambil dari postgreSQL dan API yang kemudian disimpan di dalam minio dalam format parquet 
 - Transform
 
-Jelaskan bagaimana data dibersihkan, diproses, atau diubah agar siap untuk dimuat.
-Teknik yang digunakan (contoh: agregasi, normalisasi).
+    Transform data dilakukan menggunakan service spark dengan 2 klaster untuk handling file parquet yang sudah disimpan di minio. Setelah data di peroleh data diproses dengan membuat schema, melakukan formating beberapa tipe data, karena ada beberapa data yang tidak memiliki tipe data yang sesuai kemudian data disimpan ke postgresSQL sebagai data warehouse.
+
 - Load
 
-Jelaskan bagaimana data dimuat ke data warehouse atau data lake.
-Solusi penyimpanan yang digunakan (contoh: Hadoop HDFS, BigQuery).
+    Load data selain dilakukan di write setelah tranform data dengan spark, dilakukan load data lagi yang sudah berbentuk kimball model kedalam data warehouse menggunakan service DBT agar subjek bisa melakukan analisis di data mart.
 
 # Step-by-Step Implementation
-- Environment Setup
+1. Masuk kedalam directory utama repository ini. Pastikan sudah berada di posisi `/analytic_financial_transaction` ketika menjalankan perintah `pwd`
 
-Berikan instruksi untuk mengatur lingkungan proyek, termasuk instalasi dependencies.
+2. Jalankan perintah `make create-network` untuk membuat docker network agar semua service saling terhubung
 
-- Code Workflow
+3. Tahap selanjutnya jalankan perintah `make docker-build` untuk membuat image docker baru sesuai project
 
-Jelaskan alur kerja kode secara rinci.
+4. Jalankan perintah `make docker-compose` untuk membuat docker container sesuai docker file untuk tiap service
 
-- Pipeline Execution 
-
-Jelaskan bagaimana pipeline dapat dijalankan (contoh: menggunakan Airflow DAGs atau script).
+```
+Note:
+untuk data yang digunakan untuk ingestion data diambil dari https://www.kaggle.com/datasets/computingvictor/transactions-fraud-datasets kemudian data seperti cards_data.csv, transactions_data.csv, dan users_data.csv di insert kedalam postgreSQL secara manual
+```
 
 # Key Features
-Highlight fitur-fitur unggulan dari pipeline Anda, seperti fault tolerance, skalabilitas, atau monitoring.
+Staging area, Data warehouse, orchestration, visualization
 
 # Performance Optimization
-Diskusikan strategi yang digunakan untuk meningkatkan kinerja, seperti paralelisasi, caching, atau indexing.
+Strategi yang digunakan pada project ini adalah paralelisasi untuk beberapa task airflow flow terutama ketika melakukan ingestion data dari beberapa sumber, kemudian menggunakan spark cluster dengan 2 node untuk handling transoformasi data dalam jumlah besar
 
 # Challenges and Solutions
-Sebutkan tantangan yang dihadapi selama pengembangan proyek dan bagaimana Anda mengatasinya.
+Tantangan yang dihadapi pada pengembangan project ini adalah:
+1. Mengembangkan API yang bisa diakses oleh airflow untuk ingestion data karena jumlah data yang banyak memerlukan waktu penarikan yang lama sehingga diperlukan filter agar data yang diambil bisa dibatasi
+2. Tranformasi data dengan spark ketika mengambil data dari storage minIO dengan airflow. Pada tahap ini diperlukan penyesuaian versi spark yang ada di spark master, spark cluster, dan spark yang ada di airflow agar proses running task SparkSubmitOperator bisa berjalan. Selain itu diperlukan penyesuian versi hadoop dan amazon s3 yang bisa digunakan sesuai versi spark yang digunakan
+3. Pengembangan data modeling dengan DBT, beberapa tantangan ketika melakukan data modeling adalah menjalankan DBT dengan menggunakan airflow, untuk solusi pada tahap ini dilakukan tahap secara manual
 
-# How to Use
-Berikan panduan langkah-langkah untuk menjalankan proyek ini, termasuk perintah terminal (jika ada).
 
 # Future Enhancements
-Bagikan rencana pengembangan di masa depan, seperti integrasi machine learning atau visualisasi data.
-
-# References
-Sebutkan referensi atau dokumentasi yang membantu Anda selama pengembangan proyek.
-
-# Contact
-Berikan detail kontak atau tautan ke profil LinkedIn/GitHub Anda jika seseorang ingin menghubungi Anda untuk pertanyaan atau kolaborasi.
+Untuk pengembangan selanjutnya disarankan untuk menjalankan DBT secara otomatis dengan menggunakan API yang sama di FastAPI, sehingga nanti ketika di airflow hanya perlu melakukan hit ke API DBT nya.
