@@ -10,8 +10,8 @@ datetime_days_ago = datetime.now() - timedelta(days=1)
 @dag(
     dag_id = "transform_transactions_card_dag",
     description='Extraction from source',
-    schedule_interval='@monthly',
-    start_date=datetime(year=datetime_days_ago.year, month=datetime_days_ago.month, day=datetime_days_ago.day)
+    schedule_interval=None,
+    start_date=datetime(2014, 12, 1)
 )
 def transform_transactions_card_dag():
     stark_task = EmptyOperator(

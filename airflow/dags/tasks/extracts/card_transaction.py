@@ -41,7 +41,6 @@ def extract_transaction(**kwargs):
     if results:
         data_frame = pd.DataFrame(results)
         connection_save_to_minio(data_name='transactions', unique_1=month, unique_2=years, data_frame=data_frame)
-        Variable.set(key='var_extraction_transaction_date', value=execution_date)
         print(f"PUSH DATA TRANSACTIONS TO STORAGE SUCCESS!!!")
 
 def extract_card():

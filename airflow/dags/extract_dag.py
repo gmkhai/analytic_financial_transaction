@@ -12,7 +12,7 @@ from tasks.loads.card_transaction import load_stage_card_transaction, load_wareh
     start_date=datetime(2010, 1, 1),
     catchup=True,
     description='Extraction from source',
-    schedule_interval='@monthly'
+    schedule_interval=None
 )
 def extract_transactions_card_dag():
     start_task = EmptyOperator(
