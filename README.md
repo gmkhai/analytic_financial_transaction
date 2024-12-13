@@ -8,7 +8,7 @@ Melakukan otomatisasi untuk beberapa tahap dari tahap extraction hingga di simpa
 # Architecture Diagram
 
 1. Arsitektur ETL yang digunakan
-    ![alt text](<documentions/ETL Architecture Muhammad Khairunnas.png>)
+    ![documentions/ETL Architecture Muhammad Khairunnas.png](<documentions/ETL Architecture Muhammad Khairunnas.png>)
 
 2. Data modeling yang dirancang
     ![alt text](<documentions/Data Modeling Muhammad Khairunnas.png>)
