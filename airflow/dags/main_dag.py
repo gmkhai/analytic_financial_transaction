@@ -28,11 +28,17 @@ def main_trigger_dag():
         wait_for_completion=True
     )
 
+    trigger_load_dag_task = TriggerDagRunOperator(
+        task_id='trigger_load_dag_task',
+        trigger_dag_id='load_transactions_card_dag',
+        wait_for_completion=True
+    )
+
     end_task = EmptyOperator(
         task_id='end_task',
     )
 
-    start_task >> trigger_extract_dag_task >> trigger_tranform_dag_task >> end_task
+    start_task >> trigger_extract_dag_task >> trigger_tranform_dag_task >> trigger_load_dag_task >> end_task
 
 
 main_trigger_dag()
