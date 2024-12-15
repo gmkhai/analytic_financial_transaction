@@ -1,4 +1,4 @@
-from base import load_config
+from base import *
 from pyspark.sql import SparkSession, functions as F
 from pyspark.sql.types import FloatType, IntegerType, StringType, StructField, StructType
 
@@ -59,10 +59,10 @@ null_counts = df_reformat.agg(
 null_counts.show()
 
 # configurations to postgres
-jdbc_url = f'jdbc:postgresql://postgres:5432/datawarehouse'
+jdbc_url = f'jdbc:postgresql://{POSTGRES_HOST_NAME}:{POSTGRES_PORT}/{POSTGRES_DB_WH}'
 jdbc_properties = {
-    'user': 'airflow',
-    'password': 'final_project123',
+    'user': POSTGRES_USER,
+    'password': POSTGRES_PASSWORD,
     'driver': 'org.postgresql.Driver',
     'stringtype': 'unspecified'
 }

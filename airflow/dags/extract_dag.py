@@ -35,7 +35,7 @@ def extract_transactions_card_dag():
 
     end_task = EmptyOperator(
         task_id='end_task',
-        trigger_rule=TriggerRule.ONE_SUCCESS
+        trigger_rule=TriggerRule.ALL_SUCCESS
     )
 
     start_task >> [extract_card_task, extract_user_task, extract_transaction_task] >> end_task

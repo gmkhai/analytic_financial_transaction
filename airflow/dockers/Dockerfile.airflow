@@ -31,6 +31,7 @@ RUN pip install \
     apache-airflow-providers-apache-spark \
     requests==2.31 \
     pandas==1.2.4 \
+    python-dotenv==0.20.0 \
     apache-airflow-providers-slack==8.4.0 \
     great-expectations==0.16.13 \
     sqlalchemy-bigquery==1.6.1 \
@@ -39,3 +40,4 @@ RUN pip install \
     pyarrow
 
 COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags
+COPY ../../.env /opt/airflow/.env

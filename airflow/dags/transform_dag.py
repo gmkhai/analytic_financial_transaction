@@ -41,7 +41,7 @@ def transform_transactions_card_dag():
 
     end_task = EmptyOperator(
         task_id='end_task',
-        trigger_rule=TriggerRule.ONE_SUCCESS
+        trigger_rule=TriggerRule.ALL_SUCCESS
     )
 
     stark_task >> [transform_transaction_task, tranform_card_task, tranform_user_task] >> end_task

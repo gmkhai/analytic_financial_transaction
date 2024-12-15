@@ -1,6 +1,7 @@
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
+from airflow.utils.trigger_rule import TriggerRule
 from datetime import datetime
 from tasks.loads.card_transaction import load_card_transaction
 
@@ -22,7 +23,8 @@ def load_transactions_card_dag():
     )
 
     end_task = EmptyOperator(
-        task_id='end_task'
+        task_id='end_task',
+	trigger_rule=TriggerRule.ALL_SUCCESS
     )
 
     start_task >> load_datamart_task >> end_task

@@ -1,9 +1,12 @@
 import io
+import os
 import pandas as pd
 import requests
+from dotenv import load_dotenv
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from pathlib import Path
 
 
 def connection_save_to_minio(data_name: str, unique_1: int, unique_2: int, data_frame):
@@ -29,11 +32,18 @@ def connection_save_to_minio(data_name: str, unique_1: int, unique_2: int, data_
     )
 
 def extract_transaction(**kwargs):
+    path_dotenv = Path('/opt/airflow/.env')
+    load_dotenv(path_dotenv)
+
+    # load from .env file
+    FASTAPI_HOST = os.getenv('FAST_CONTAINER_NAME')
+    FASTAPI_PORT = os.getenv('FASTAPI_PORT')
+
     execution_date = kwargs.get("execution_date")
     month = execution_date.strftime("%m")
     years = execution_date.strftime("%Y")
     
-    response = requests.get(f'http://fastapi:8000/transactions?date={month}-{years}')
+    response = requests.get(f'http://{FASTAPI_HOST}:{FASTAPI_PORT}/transactions?date={month}-{years}')
     response_result = response.json()
     results = None
     if response_result.get("status_code") == 200:

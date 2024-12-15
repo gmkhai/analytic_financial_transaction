@@ -1,5 +1,6 @@
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
+from airflow.utils.trigger_rule import TriggerRule
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime
 
@@ -36,6 +37,7 @@ def main_trigger_dag():
 
     end_task = EmptyOperator(
         task_id='end_task',
+	trigger_rule=TriggerRule.ALL_SUCCESS
     )
 
     start_task >> trigger_extract_dag_task >> trigger_tranform_dag_task >> trigger_load_dag_task >> end_task
