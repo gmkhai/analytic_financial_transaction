@@ -1,3 +1,4 @@
+from settings import *
 import subprocess
 from pathlib import Path
 
