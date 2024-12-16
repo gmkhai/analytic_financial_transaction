@@ -32,11 +32,11 @@ def connection_save_to_minio(data_name: str, unique_1: int, unique_2: int, data_
     )
 
 def extract_transaction(**kwargs):
-    path_dotenv = Path('/opt/airflow/.env')
+    path_dotenv = Path('/opt/.env')
     load_dotenv(path_dotenv)
 
     # load from .env file
-    FASTAPI_HOST = os.getenv('FAST_CONTAINER_NAME')
+    FASTAPI_HOST = os.getenv('FASTAPI_CONTAINER_NAME')
     FASTAPI_PORT = os.getenv('FASTAPI_PORT')
 
     execution_date = kwargs.get("execution_date")

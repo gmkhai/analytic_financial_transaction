@@ -23,6 +23,8 @@ RUN curl -o /opt/spark/jars/hadoop-aws-${HADOOP_VERSION}.jar ${AWS_JAR_URL} && \
 ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 RUN export JAVA_HOME
 
+RUN chmod -R 755 /opt/airflow/logs
+
 USER airflow
 
 RUN pip install \
@@ -40,5 +42,5 @@ RUN pip install \
     pyarrow
 
 COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags
-COPY ../../commands/entrypoint.sh /opt/airflow/commands/entrypoint.sh
-COPY ../../.env /opt/airflow/.env
+COPY ../../airflow/commands/entrypoint.sh /opt/airflow/commands/entrypoint.sh
+COPY ../../.env /opt/.env

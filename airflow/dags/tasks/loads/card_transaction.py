@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 def load_card_transaction():
-    path_envfile = Path('/opt/airflow/.env')
+    path_envfile = Path('/opt/.env')
     load_dotenv(path_envfile)
 
     # load variable from .env

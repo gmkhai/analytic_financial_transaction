@@ -5,7 +5,7 @@ from pyspark import SparkContext
 
 
 # Load variables from .env file
-dotenv_path = Path('/opt/app/.env')
+dotenv_path = Path('/opt/.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 # Initialize variables for services
