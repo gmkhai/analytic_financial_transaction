@@ -28,7 +28,7 @@ services:
     image: final-project/airflow
     container_name: ${AIRFLOW_WEBSERVER_CONTAINER_NAME}
     hostname: ${AIRFLOW_WEBSERVER_CONTAINER_NAME}
-    entrypoint: /commands/entrypoint.sh
+    entrypoint: /opt/airflow/commands/entrypoint.sh
     networks:
       - final_test
     depends_on:

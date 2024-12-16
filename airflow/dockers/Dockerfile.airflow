@@ -40,4 +40,5 @@ RUN pip install \
     pyarrow
 
 COPY --chown=airflow:root ../../airflow/dags /opt/airflow/dags
+COPY ../../commands/entrypoint.sh /opt/airflow/commands/entrypoint.sh
 COPY ../../.env /opt/airflow/.env
