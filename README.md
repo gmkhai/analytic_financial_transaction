@@ -135,4 +135,4 @@ Tantangan yang dihadapi pada pengembangan project ini adalah:
 
 
 # Future Enhancements
-Untuk pengembangan selanjutnya disarankan untuk menjalankan DBT secara otomatis dengan menggunakan API yang sama di FastAPI, sehingga nanti ketika di airflow hanya perlu melakukan hit ke API DBT nya.
+Untuk pengembangan selanjutnya menggunakan data warehouse yang memang sesuai dengan peruntukan OLAP seperti bigQuery.
