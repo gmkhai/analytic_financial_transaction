@@ -6,3 +6,4 @@ Folder ini berisi beberapa hasil dari analisis proses, dan penjelasan singkat da
 2. file `documentions/Data Modeling Muhammad Khairunnas.png` berisi data modeling dengan schema kimball model
 3. file `documentions/ETL Architecture Muhammad Khairunnas.png` berisi arsitektur ETL yang digunakan pada project ini
 4. file `documentions/Power Point Muhammad Khairunnas.pptx` berisi ppt yang mendeskripsikan tujuan dan hasil dari project ini
+5. folder `image` berisi gambar hasil screenshot dari proses ETL yang sudah selesai
